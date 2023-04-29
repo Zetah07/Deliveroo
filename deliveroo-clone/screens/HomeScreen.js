@@ -3,6 +3,8 @@ import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { AdjustmentsVerticalIcon, ChevronDownIcon, MagnifyingGlassIcon, UserIcon } from 'react-native-heroicons/outline'
 import Categories from '../components/Categories'
+import FeaturedRow from '../components/FeaturedRow'
+
 
 const HomeScreen = () => {
     const navigation = useNavigation();
@@ -42,15 +44,33 @@ const HomeScreen = () => {
             </View>
                 <AdjustmentsVerticalIcon  color='#00CCBB'/>
         </View>
-
-        {/* BODY */}
-        <ScrollView className='bg-gray-100 flex-1'
-        contentContainerStyle
+                {/* BODY */}
+        <ScrollView
+        className='bg-gray-100'
+        contentContainerStyle={{
+            paddingBottom:100,
+        }}
         >
             {/* categories */}
-            
+            <Categories />
 
-            {/* featured */}
+            {/* featured Rows*/}
+            <FeaturedRow 
+            id='1'
+                title='Featured'
+                description='Paid placements from our partners'
+            />
+            <FeaturedRow
+                id='2'
+                title='tasty Discounts'
+                description="Everyone's been enjoying these juicy discounts!"
+            />
+            <FeaturedRow 
+                id='3'
+                title='Offers near you!'
+                description='Why not support your local restaurant tonight!'
+            />
+
         </ScrollView>
     </SafeAreaView>
   )
