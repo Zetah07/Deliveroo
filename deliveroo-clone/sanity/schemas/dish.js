@@ -1,23 +1,21 @@
 import {defineField, defineType} from 'sanity'
 
 export default defineType({
-  name: 'author',
-  title: 'Author',
+  name: 'dish',
+  title: 'Dish',
   type: 'document',
   fields: [
     defineField({
       name: 'name',
-      title: 'Name',
+      title: 'Name of dish',
       type: 'string',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'name',
-        maxLength: 96,
-      },
+      name: 'short_description',
+      title: 'Shor Description',
+      type: 'string',
+      validation: (Rule) => Rule.required(200),
     }),
     defineField({
       name: 'image',
@@ -28,23 +26,10 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'bio',
-      title: 'Bio',
-      type: 'array',
-      of: [
-        {
-          title: 'Block',
-          type: 'block',
-          styles: [{title: 'Normal', value: 'normal'}],
-          lists: [],
-        },
-      ],
+      name: 'price',
+      title: 'Price of the dish in dollars',
+      type: 'number',
     }),
   ],
-  preview: {
-    select: {
-      title: 'name',
-      media: 'image',
-    },
-  },
+  
 })
