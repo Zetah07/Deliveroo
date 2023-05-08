@@ -1,79 +1,62 @@
+
 import {View, Text, SafeAreaView, Image, TextInput, ScrollView } from 'react-native'
-import React, { useLayoutEffect } from 'react'
-import { useNavigation } from '@react-navigation/native'
-import { AdjustmentsVerticalIcon, ChevronDownIcon, MagnifyingGlassIcon, UserIcon } from 'react-native-heroicons/outline'
-import Categories from '../components/Categories'
-import FeaturedRow from '../components/FeaturedRow'
+import React, {  } from 'react'
+
+import * as Icon from 'react-native-feather'
+
+import { StatusBar } from 'expo-status-bar';
+import { themeColors } from '../theme';
+import Categories from '../components/Categories';
+import FeaturedRow from '../components/FeaturedRow';
+import { featured } from '../constants';
 
 
 const HomeScreen = () => {
-    const navigation = useNavigation();
-
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerShown: false, 
-        });
-    }, []);
 
   return (
-    <SafeAreaView className='bg-white pt-8'>
-        <View className='flex-row pb-3 items-center space-x-2 mx-4'>
-            <Image 
-                source={{
-                    uri: 'https://links.papareact.com/wru'
-                }}
-                className='h-7 w-7 bg-gray-300 p-4 rounded-full'
-            />
-        <View className='flex-1'>
-            <Text className='font-bold text-gray-400 text-xs'>Deliver Now!</Text>
-            <Text className='font-bold text-xl'>Current Location
-                <ChevronDownIcon size={20} color='#00CCBB' />
-            </Text>
-        </View>
-
-        <UserIcon size={35} color='#00CCBB' />
-        </View>
-            {/* SEARCH */}
-        <View className='flex-row items-center space-x-2 pb-2 mx-4' >
-            <View className='flex-row space-x-2 flex-1 bg-gray-200 p-3'>
-                <MagnifyingGlassIcon color='#00CCBB' size={20} />
-                <TextInput 
-                placeholder='Restaurant and cuisines'
-                keyboardType='default'
-                />
+    <SafeAreaView className="bg-white pt-9" >
+    <StatusBar
+        barStyle="dark-content" 
+    />
+    {/* search bar */}
+        <View className="flex-row items-center space-x-2 px-4 pb-2 ">
+            <View className="flex-row flex-1 items-center p-3 rounded-full border border-gray-300">
+                <Icon.Search height="25" width="25" stroke="gray" />
+                <TextInput placeholder='Resturants' className="ml-2 flex-1" keyboardType='default' />
+                <View className="flex-row items-center space-x-1 border-0 border-l-2 pl-2 border-l-gray-300">
+                    <Icon.MapPin height="20" width="20" stroke="gray" />
+                    <Text className="text-gray-600">New York, NYC</Text>
+                </View>
             </View>
-                <AdjustmentsVerticalIcon  color='#00CCBB'/>
+            <View style={{backgroundColor: themeColors.bgColor(1)}} className="p-3 rounded-full">
+                <Icon.Sliders height={20} width={20} strokeWidth="2.5" stroke="white" />
+            </View>
         </View>
-                {/* BODY */}
-        <ScrollView
-        className='bg-gray-100'
+        <ScrollView showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-            paddingBottom:100,
-        }}
-        >
-            {/* categories */}
-            <Categories />
+            paddingBottom: 20,
+        }}>
 
-            {/* featured Rows*/}
-            <FeaturedRow 
-            id='1'
-                title='Featured'
-                description='Paid placements from our partners'
-            />
-            <FeaturedRow
-                id='2'
-                title='tasty Discounts'
-                description="Everyone's been enjoying these juicy discounts!"
-            />
-            <FeaturedRow 
-                id='3'
-                title='Offers near you!'
-                description='Why not support your local restaurant tonight!'
-            />
+            <Categories />
+            <View className ='mt-5'>
+                {
+                    [ featured, featured, featured].map ((item, index)=>{
+                        return (
+                            <FeaturedRow
+                                key={index}
+                                title={item.title}
+                                restaurants={item?.restaurants}
+                                description={item.description}
+                                />
+                        )
+                    })
+                }
+            </View>
 
         </ScrollView>
     </SafeAreaView>
   )
 }
+
 
 export default HomeScreen

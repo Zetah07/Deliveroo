@@ -1,43 +1,40 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableWithoutFeedback, Image } from 'react-native'
 import React from 'react'
-import { MapPinIcon, StarIcon } from 'react-native-heroicons/outline'
+import { useNavigation } from '@react-navigation/native'
 
-const RestaurantCard = ({
-    id,
-    imgUrl,
-    title,
-    rating,
-    genre, 
-    address, 
-    short_description, 
-    dishes,
-    long, 
-    lat
+import * as Icon from 'react-native-feather'
+import { themeColors } from '../theme'
 
-}) => {
+export default function RestaurantCard({item}) {
+    const navigation = useNavigation();
   return (
-    <TouchableOpacity className >
-        <Image 
-            source={{
-                uri:imgUrl,
+    <TouchableWithoutFeedback
+        onPress={()=>navigation.navigate('Restaurant', {...item})}
+    >
+        <View
+            style={{
+                shadowColor: themeColors.bgColor(0.2), 
+                shadowRadius: 7
             }}
-            className='h36 w-64 rounded-sm'
-        />
-        <View className='px3 pb-4' >
-            <Text className='font-bold text-lg pt-2'>{title}</Text>
-            <View className='flex-row items-center space-x-1' >
-                <StarIcon color='green' opacity={0.5} size={22} />
-                <Text className='text-xs text-gray-500'>
-                <Text className='text-green-500' >{rating}</Text> - {genre}
-                </Text>
-            </View>
-            <View className='flex-row items-center space-x-1' >
-                <MapPinIcon color='gray' opacity={0.4} size={22} />
-                <Text className='text-xs text-gray-500'>Nearby - {address}</Text>
-            </View>
+            className='mr-6 bg-white rounded-3xl shadow-lg'>
+                <Image className='h-36 w-64 rounded-t-3xl' source={item.image} />
+                <View className='px-3 pb-4 space-y-2'>
+                    <Text className='text-lg font-bold pt-2'>
+                        {item.name}
+                    </Text>
+                    <View className='flex-row items-center space-x-1'>
+                        <Image source={require('../assets/images/fullStar.png')} className='h-4 w-4' />
+                        <Text className='text-green-700'>{item.stars}</Text>
+                        <Text className='text-gray-700'>
+                            ({item.reviews} review) - <Text className='font-semibold'>{item.catogory}</Text>
+                        </Text>
+                    </View>
+                    <View className='flex-row items-center space-x-1'>
+                        <Icon.MapPin color='gray' width='15' height='15' />
+                        <Text className='text-gray-700 text-xs'>Nearby {item.address}</Text>
+                    </View>
+                </View>
         </View>
-    </TouchableOpacity>
+    </TouchableWithoutFeedback>
   )
 }
-
-export default RestaurantCard
