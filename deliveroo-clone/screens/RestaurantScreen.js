@@ -1,9 +1,11 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, Image, TouchableOpacity, StatusBar } from 'react-native'
 import React from 'react'
 import { useRoute } from '@react-navigation/native'
 
 import * as Icon from 'react-native-feather'
 import { themeColors } from '../theme'
+import DishRow from '../components/DishRow'
+import CartIcon from '../components/CartIcon'
 
 const RestaurantScreen = () => {
   const {params} = useRoute();
@@ -13,6 +15,8 @@ const RestaurantScreen = () => {
   
   return (
     <View>
+      <CartIcon />
+      <StatusBar style='light'/>
      <ScrollView>
       <View className='relative'>
         <Image className='w-full h-72' source={item.image} />
@@ -40,8 +44,18 @@ const RestaurantScreen = () => {
                     <Text className='text-gray-700 text-xs'>Nearby {item.address}</Text>
                 </View>
             </View>
+            <Text className='text-gray500 mt-2'>{item.description}</Text>
           </View>
       </View>
+      <View>
+      <View className='pb-36 bg-white'>
+        <Text className='px-4 py-4 text-2xl font-bold'>Menu</Text>
+        {/* dishes */}
+        {
+          item.dishes.map((dish, index)=> <DishRow item={{...dish}} key={index}/>)
+        }
+      </View>
+      </View >
      </ScrollView>
     </View>
   )
