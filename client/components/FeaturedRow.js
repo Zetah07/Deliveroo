@@ -5,7 +5,7 @@ import RestaurantCard from './RestaurantCard'
 
 export default function FeaturedRow({title, description, restaurants}) {
   return (
-    <View>
+    <View className='bg-gray-100 pb-4'>
         <View className='flex-row justify-between items-center px-4'>
             <View>
                 <Text className='font-bold text-lg'>{title}</Text>
@@ -21,14 +21,16 @@ export default function FeaturedRow({title, description, restaurants}) {
         contentContainerStyle={{
             paddingHorizontal:15
         }}
-        className='overflow-visible py-7'
+        className='overflow-visible py-5 '
         >
             {
                 restaurants.map((restaurant, index)=>{
+                    return(
                     <RestaurantCard 
                         item={restaurant}
                         key={index}
-                    />
+                        />
+                        )
                 })
             }
         </ScrollView>

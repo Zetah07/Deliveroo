@@ -13,10 +13,16 @@ export default function RestaurantCard({item}) {
     >
         <View
             style={{
-                shadowColor: themeColors.bgColor(0.2), 
-                shadowRadius: 7
+                shadowColor: "#f97316",
+                shadowOffset: {
+                width: 0,
+                height: 9,
+                },
+                shadowOpacity:  0.22,
+                shadowRadius: 9.22,
+                elevation: 12
             }}
-            className='mr-6 bg-white rounded-3xl shadow-lg'>
+            className='mr-6 bg-white rounded-3xl shadow-lg mb-3'>
                 <Image className='h-36 w-64 rounded-t-3xl' source={item.image} />
                 <View className='px-3 pb-4 space-y-2'>
                     <Text className='text-lg font-bold pt-2'>
