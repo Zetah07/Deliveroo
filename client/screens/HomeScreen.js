@@ -1,6 +1,6 @@
 
 import {View, Text, SafeAreaView, Image, TextInput, ScrollView } from 'react-native'
-import React, {  } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import * as Icon from 'react-native-feather'
 
@@ -8,10 +8,19 @@ import { StatusBar } from 'expo-status-bar';
 import { themeColors } from '../theme';
 import Categories from '../components/Categories';
 import FeaturedRow from '../components/FeaturedRow';
-import { featured } from '../constants';
+
+import { getFeaturedResturants } from '../api';
 
 
 const HomeScreen = () => {
+
+    const [featuredRestaurants, setFeaturedRestaurants] = useState([]);
+
+    useEffect(()=>{
+        getFeaturedResturants().then(data=>{
+            setFeaturedRestaurants(data)
+        })
+    }, [])
 
   return (
     <SafeAreaView className="bg-white pt-9" >
@@ -25,7 +34,7 @@ const HomeScreen = () => {
                 <TextInput placeholder='Resturants' className="ml-2 flex-1" keyboardType='default' />
                 <View className="flex-row items-center space-x-1 border-0 border-l-2 pl-2 border-l-gray-300">
                     <Icon.MapPin height="20" width="20" stroke="gray" />
-                    <Text className="text-gray-600">New York, NYC</Text>
+                    <Text className="text-gray-600">Medellin, ANT</Text>
                 </View>
             </View>
             <View style={{backgroundColor: themeColors.bgColor(1)}} className="p-3 rounded-full">
@@ -40,11 +49,11 @@ const HomeScreen = () => {
             <Categories />
             <View className ='mt-5'>
                 {
-                    [ featured, featured, featured].map ((item, index)=>{
+                    featuredRestaurants.map ((item, index)=>{
                         return (
                             <FeaturedRow
                                 key={index}
-                                title={item.title}
+                                title={item.name}
                                 restaurants={item?.restaurants}
                                 description={item.description}
                                 />

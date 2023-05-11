@@ -8,7 +8,7 @@ import * as Icon from 'react-native-feather'
 import { useSelector } from 'react-redux';
 import { selectRestaurant } from '../slices/restaurantSlice';
 import { useDispatch } from 'react-redux';
-import { RemoveFromCart } from '../slices/cartSlice';
+import { RemoveFromCart, selectCartItems, selectCartTotal } from '../slices/cartSlice';
 
 export default function CartScreen() {
 
@@ -19,7 +19,7 @@ export default function CartScreen() {
     const restaurant = useSelector(selectRestaurant);
     const cartItems = useSelector(selectCartItems);
     const cartTotal = useSelector(selectCartTotal);
-    const deliveryFee = 2
+    const deliveryFee = 3
 
     const [groupedItems, setGroupedItems]= useState({});
 
@@ -74,7 +74,7 @@ export default function CartScreen() {
             className='bg-white pt-5'
             >
                 {
-                    Object.entries(groupedItems).map((key, items)=>{
+                    Object.entries(groupedItems).map(([key, items])=>{
                         let dish = items[0];
                         return(
                             <View key={key}  className='flex-row items-center space-x-3 py-2 px-4 bg-white rounded-3xl mx-2 mb-3 shadow-md'>

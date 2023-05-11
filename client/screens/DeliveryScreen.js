@@ -15,12 +15,14 @@ import { emptyCart } from '../slices/cartSlice';
 
 export default function DeliveryScreen() {
     const navigation = useNavigation();
-    const resturant = useSelector(selectRestaurant);
+
     const dispatch = useDispatch();
+    const resturant = useSelector(selectRestaurant);
     const handleCancel = ()=>{
       dispatch(emptyCart());
       navigation.navigate('Home')
     }
+    
   return (
     <View className="flex-1" >
         <MapView

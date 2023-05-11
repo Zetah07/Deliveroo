@@ -4,15 +4,18 @@ import { useRoute } from '@react-navigation/native'
 
 import * as Icon from 'react-native-feather'
 import { themeColors } from '../theme'
-import DishRow from '../components/DishRow'
-import CartIcon from '../components/CartIcon'
 import { useDispatch } from 'react-redux'
+import { useNavigation } from '@react-navigation/native';
 import { setRestaurant } from '../slices/restaurantSlice'
+import CartIcon from '../components/CartIcon'
+import DishRow from '../components/DishRow'
+import { urlFor } from '../sanity'
 
 const RestaurantScreen = () => {
+  const navigation = useNavigation();
   const {params} = useRoute();
   let item =params;
-  const dispatch = useDispatch
+  const dispatch = useDispatch();
 
   useEffect(()=> {
     if(item && item.id){
@@ -26,7 +29,7 @@ const RestaurantScreen = () => {
       <StatusBar style='light'/>
      <ScrollView>
       <View className='relative'>
-        <Image className='w-full h-72' source={item.image} />
+        <Image className='w-full h-72' source={{uri: urlFor(item.image).url()}} />
         <TouchableOpacity
           onPress={()=>navigation.goBack()}
           className='absolute top-14 left-4 bg-gray-50 p-2 rounded-full shadow'>

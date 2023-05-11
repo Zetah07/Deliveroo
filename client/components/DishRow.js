@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RemoveFromCart, addToCart, selectCartItemsById } from '../slices/cartSlice'
 
 export default function DishRow({item}) {
-    const dispatch = useDispatch
+    const dispatch = useDispatch();
     const totalItems = useSelector(state => selectCartItemsById(state, item.id))
 
     const handleIncrease = () =>{

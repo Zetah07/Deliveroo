@@ -3,7 +3,7 @@ let sanityQuery = (query, params)=> sanityClient.fetch(query, params);
 
 export const getFeaturedResturants = ()=>{
     return sanityQuery(`
-        *[_type == 'featured'] {
+        *[_type == 'resturant '] {
             ...,
             resturants[]->{
             ...,
