@@ -14,6 +14,7 @@ export const getFeaturedResturants = ()=>{
             }
         }
     `);
+    
 }
 
 export const getCategories = ()=>{
